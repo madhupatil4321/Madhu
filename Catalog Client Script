@@ -1,0 +1,20 @@
+function onChange(control, oldValue, newValue, isLoading) {
+    if (isLoading || newValue == '') {
+        return;
+    }
+    var ga = new GlideAjax('getUserDetails'); // getUserDetails is the script include class 
+    ga.addParam('sysparm_name', 'getLocation'); // getLocation is the script include method 
+    ga.addParam('sysparm_user_name', g_form.getValue('requested_for')); // Set parameter sysparm_user_name to 'Bob' 
+    ga.getXML(getLocation);
+    /* Call HelloWorld.helloWorld() with the parameter sysparm_user_name set to 'Bob' 
+        and use the callback function HelloWorldParse() to return the result when ready */
+
+    // the callback function for returning the result from the server-side code
+    function getLocation(response) {
+        var answer = response.responseXML.documentElement.getAttribute("answer");
+       // alert(answer);
+		g_form.setValue('office_location', answer);
+    }
+
+
+}
