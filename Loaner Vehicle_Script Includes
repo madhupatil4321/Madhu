@@ -1,0 +1,21 @@
+var getUserDetails = Class.create();
+getUserDetails.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+   getLocation: function() {
+        var location = '';
+		var user = this.getParameter('sysparm_user_name');
+		var gr = new GlideRecord('sys_user');
+		gr.addQuery('sys_id', user);
+		gr.query();
+		
+		if(gr.next()){
+			location = gr.getValue('location');
+			
+		}
+		return location;
+		
+
+},
+	type: 'getUserDetails'
+
+});
